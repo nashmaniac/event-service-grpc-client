@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"event-service-grpc-client/pb"
+	"event-service-grpc-client/serializer"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/structpb"
 	"io/ioutil"
@@ -24,9 +25,9 @@ func ConfigureClient() pb.EventClient {
 func mockCreateRequest(client pb.EventClient)  {
 	structData := readJsonFile("samples/data.json")
 	input := &pb.EventInputParams{
-		Email:         "title@gmail.com",
-		Environment:   "production",
-		Component:     "supply",
+		Email:         "raju@gmail.com",
+		Environment:   "staging",
+		Component:     "analytics",
 		MessageString: "The order is placed successfully",
 		Data:          structData,
 	}
@@ -34,7 +35,7 @@ func mockCreateRequest(client pb.EventClient)  {
 	if err != nil {
 		log.Println(err)
 	}
-	log.Println(res)
+	log.Println(serializer.ConvertProtobufToJson(res))
 }
 
 func readJsonFile(fileName string) *structpb.Struct {
@@ -51,8 +52,8 @@ func mockFilterRequest(client pb.EventClient)  {
 	queryParams := map[string]string {
 		//"email": "shetu2153@gmail.com",
 		//"component": "orders",
-		"from": "2021-05-10",
-		"message": "successfully",
+		//"from": "2021-05-10",
+		//"message": "successfully",
 	}
 	eventFilterInput := &pb.EventFilterInput{Params: queryParams}
 	res, err := client.FilterEvents(context.Background(), eventFilterInput)
@@ -60,7 +61,7 @@ func mockFilterRequest(client pb.EventClient)  {
 		log.Println(err.Error());
 	}
 	log.Println(len(res.Events))
-	log.Println(res)
+	log.Println(serializer.ConvertProtobufToJson(res))
 }
 
 func main() {
