@@ -1,0 +1,20 @@
+{
+  "value": "test",
+  "key": "key",
+  "data": {
+    "fields": [
+      {
+        "name": "hello",
+        "indegredients": [
+          1, 2, 3
+        ]
+      },
+      {
+        "indegredients": [
+          1, 2, 3
+        ]
+      }
+    ]
+  },
+  "price_list": [1, 2, 3]
+}

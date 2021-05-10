@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package event_service;
+
+option go_package = "/pb";
+
+import "google/protobuf/struct.proto";
+
+message EventInputParams {
+    string email = 1;
+    string environment = 2;
+    string component = 3;
+    string message_string  = 4;
+    google.protobuf.Struct data = 5;
+}
+
+message EventResponse {
+    string id = 1;
+    string email = 2;
+    string environment = 3;
+    string component = 4;
+    string message_string  = 5;
+    google.protobuf.Struct data = 6;
+}
+
+message EventFilterInput {
+    map<string, string> params = 1;
+}
+message EventFilterResponse {
+    repeated EventResponse events = 1;
+}

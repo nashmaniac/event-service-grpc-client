@@ -1,0 +1,9 @@
+syntax = "proto3";
+package event_service;
+import "proto/event_message.proto";
+option go_package = "/pb";
+
+service Event {
+    rpc createEvent(EventInputParams) returns (EventResponse);
+    rpc filterEvents(EventFilterInput) returns (EventFilterResponse);
+}
